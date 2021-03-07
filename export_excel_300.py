@@ -2,17 +2,28 @@
 # -*- coding: utf-8 -*-
 import pandas as pd
 import datetime as dt
+import os
 
-all_file = "~/Desktop/price_analyse/export_excel_data/all_file_name.xlsx"
-df = pd.read_excel(all_file)
+# all_file = "~/Desktop/price_analyse/export_excel_data/all_file_name.xlsx"
+# df = pd.read_excel(all_file)
 # print(df2)
 # f_list = []
 # for i in df2:
 #     f_list.append(i)
-path = "~/Desktop/price_analyse/export_excel_data/dec2020/"
+# path = "~/Desktop/price_analyse/export_excel_data/dec2020/"
+result_file_name = 'sum_feb2021.csv'
+path = "feb2021/"
 f_list = []
-for i in range(len(df)):
-    f_list.append(df.loc[i, 'all_file'])
+for filename in os.listdir(path):
+    if filename.endswith(".xls"):
+        f_list.append(filename)
+        print(f'filename: {filename}')
+    else:
+        continue
+
+# f_list = []
+# for i in range(len(df)):
+#     f_list.append(df.loc[i, 'all_file'])
 # print(f_list)
 df = []
 date = []
@@ -38,14 +49,6 @@ for i in f_list:
     total.append(str(df.loc[40,'Unnamed: 21']))
 
 print(len(date))
-print(len(pv_no))
-print(len(tax_id))
-print(len(branch))
-print(len(cus_name))
-print(len(amount))
-print(len(vat))
-print(len(total))
-
 dict1 = {
     'date': date,
     'pv_no': pv_no,
@@ -58,7 +61,7 @@ dict1 = {
     }
 
 df = pd.DataFrame(dict1, columns=['date','pv_no','tax_id','branch','cus_name','amount','vat','total'])
-df.to_csv('sum_december2020.csv', encoding='utf-8-sig')
+df.to_csv(result_file_name, encoding='utf-8-sig')
 
 # path = "~/Desktop/price_analyse/export_excel_data/09.September2019/"
 
